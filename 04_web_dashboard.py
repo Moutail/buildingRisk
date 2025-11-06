@@ -12,8 +12,8 @@ import numpy as np
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Bâtiments à Risque - Montréal",
-    page_icon="🏢",
+    page_title="Batiments a Risque - Montreal",
+    page_icon=":office:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -83,8 +83,8 @@ def load_data():
         df = pd.read_csv('output_buildings_prioritized.csv', encoding='utf-8-sig')
         return df
     except FileNotFoundError:
-        st.error("⚠️ Fichier de données non trouvé. Veuillez exécuter le pipeline d'abord.")
-        st.info("Exécutez: python run_full_pipeline.py")
+        st.error("ATTENTION: Fichier de donnees non trouve. Veuillez executer le pipeline d'abord.")
+        st.info("Executez: python run_full_pipeline.py")
         st.stop()
 
 def get_priority_color(priority_level):
@@ -136,36 +136,36 @@ def create_gauge_chart(value, title, max_value=100):
 
 def main():
     # Header
-    st.markdown('<div class="main-header">🏢 Priorisation des Bâtiments à Risque - Montréal</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">Priorisation des Batiments a Risque - Montreal</div>', unsafe_allow_html=True)
 
     # Introduction pour utilisateurs non-techniques
-    with st.expander("ℹ️ Comment utiliser ce tableau de bord ?", expanded=False):
+    with st.expander("INFO: Comment utiliser ce tableau de bord ?", expanded=False):
         st.markdown("""
-        ### Bienvenue sur l'outil de priorisation des bâtiments
+        ### Bienvenue sur l'outil de priorisation des batiments
 
-        Cet outil vous aide à identifier les bâtiments municipaux de Montréal qui devraient être priorisés pour:
-        - 🌱 **Rénovation énergétique** (réduction des émissions de GES)
-        - 🌡️ **Adaptation climatique** (protection contre chaleur et inondations)
-        - 👥 **Équité sociale** (priorité aux zones défavorisées)
+        Cet outil vous aide a identifier les batiments municipaux de Montreal qui devraient etre priorises pour:
+        - **Renovation energetique** (reduction des emissions de GES)
+        - **Adaptation climatique** (protection contre chaleur et inondations)
+        - **Equite sociale** (priorite aux zones defavorisees)
 
         **Comment naviguer:**
-        1. Utilisez la barre latérale pour filtrer les bâtiments
-        2. Consultez les indicateurs clés en haut de page
+        1. Utilisez la barre laterale pour filtrer les batiments
+        2. Consultez les indicateurs cles en haut de page
         3. Explorez les graphiques pour comprendre les tendances
-        4. Téléchargez la liste priorisée pour planifier vos interventions
+        4. Telechargez la liste priorisee pour planifier vos interventions
 
-        **Niveaux de priorité:**
-        - 🔴 **Critique** (80-100): Action urgente requise
-        - 🟠 **Haute** (60-80): Intervention recommandée à court terme
-        - 🟡 **Moyenne** (40-60): Planification à moyen terme
-        - 🟢 **Faible** (0-40): Suivi régulier
+        **Niveaux de priorite:**
+        - **Critique** (80-100): Action urgente requise
+        - **Haute** (60-80): Intervention recommandee a court terme
+        - **Moyenne** (40-60): Planification a moyen terme
+        - **Faible** (0-40): Suivi regulier
         """)
 
     # Charger les données
     df = load_data()
 
     # Sidebar - Filtres
-    st.sidebar.header("🔍 Filtres")
+    st.sidebar.header("Filtres")
 
     # Filtre par arrondissement
     boroughs = ['Tous'] + sorted(df['boroughName'].dropna().unique().tolist())
@@ -205,8 +205,8 @@ def main():
     Approche sans géomatique utilisant l'intelligence des codes postaux et le machine learning.
     """)
 
-    # Métriques principales
-    st.markdown("### 📊 Indicateurs Clés")
+    # Metriques principales
+    st.markdown("### Indicateurs Cles")
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -243,9 +243,9 @@ def main():
         )
 
     # Graphiques principaux
-    st.markdown("### 📈 Visualisations")
+    st.markdown("### Visualisations")
 
-    tab1, tab2, tab3, tab4 = st.tabs(["🎯 Vue d'ensemble", "🗺️ Par Arrondissement", "⚡ Analyse Détaillée", "📋 Liste Complète"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Vue d'ensemble", "Par Arrondissement", "Analyse Detaillee", "Liste Complete"])
 
     with tab1:
         col1, col2 = st.columns(2)
@@ -288,7 +288,7 @@ def main():
             st.plotly_chart(fig_top10, use_container_width=True)
 
         # Scatter plot multi-dimensionnel
-        st.markdown("#### 🔍 Analyse Multi-Critères")
+        st.markdown("####  Analyse Multi-Critères")
 
         fig_scatter = px.scatter(
             filtered_df,
@@ -315,7 +315,7 @@ def main():
 
     with tab2:
         # Analyse par arrondissement
-        st.markdown("#### 🗺️ Statistiques par Arrondissement")
+        st.markdown("#### ️ Statistiques par Arrondissement")
 
         borough_stats = filtered_df.groupby('boroughName').agg({
             'priority_score': 'mean',
@@ -366,8 +366,8 @@ def main():
         st.dataframe(borough_stats, use_container_width=True)
 
     with tab3:
-        # Analyses détaillées
-        st.markdown("#### ⚡ Analyses Approfondies")
+        # Analyses detaillees
+        st.markdown("#### Analyses Approfondies")
 
         col1, col2, col3 = st.columns(3)
 
@@ -411,7 +411,7 @@ def main():
             st.plotly_chart(fig_social, use_container_width=True)
 
         # Analyse par âge de bâtiment
-        st.markdown("#### 🏗️ Analyse par Âge des Bâtiments")
+        st.markdown("#### ️ Analyse par Âge des Bâtiments")
 
         # Create age bins
         filtered_df_copy = filtered_df.copy()
@@ -442,7 +442,7 @@ def main():
         st.plotly_chart(fig_age, use_container_width=True)
 
         # Matrice de corrélation
-        st.markdown("#### 🔬 Corrélations entre Facteurs (Pour Experts)")
+        st.markdown("####  Corrélations entre Facteurs (Pour Experts)")
 
         corr_cols = ['score_energy_risk', 'score_climate_risk', 'score_social_vulnerability',
                      'score_age_risk', 'score_size_impact', 'priority_score']
@@ -463,7 +463,7 @@ def main():
 
     with tab4:
         # Liste complète
-        st.markdown("#### 📋 Liste Complète des Bâtiments Priorisés")
+        st.markdown("####  Liste Complète des Bâtiments Priorisés")
 
         # Options d'affichage
         show_all_cols = st.checkbox("Afficher toutes les colonnes (mode expert)", value=False)
@@ -510,7 +510,7 @@ def main():
         # Bouton de téléchargement
         csv = filtered_df.to_csv(index=False, encoding='utf-8-sig')
         st.download_button(
-            label="📥 Télécharger les résultats (CSV)",
+            label=" Télécharger les résultats (CSV)",
             data=csv,
             file_name='batiments_priorises.csv',
             mime='text/csv'
@@ -518,14 +518,14 @@ def main():
 
     # Section recommandations
     st.markdown("---")
-    st.markdown("### 💡 Recommandations d'Action")
+    st.markdown("###  Recommandations d'Action")
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("""
         <div class="info-box">
-        <h4>🔴 Actions Prioritaires</h4>
+        <h4> Actions Prioritaires</h4>
         <ul>
             <li>Commencer par les bâtiments en priorité <strong>Critique</strong></li>
             <li>Prioriser les arrondissements à haute vulnérabilité sociale</li>
@@ -538,7 +538,7 @@ def main():
     with col2:
         st.markdown("""
         <div class="info-box">
-        <h4>📊 Prochaines Étapes</h4>
+        <h4> Prochaines Étapes</h4>
         <ul>
             <li>Effectuer des audits énergétiques détaillés</li>
             <li>Consulter les résidents des zones à haute vulnérabilité</li>

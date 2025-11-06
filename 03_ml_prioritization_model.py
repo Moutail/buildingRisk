@@ -328,11 +328,11 @@ class BuildingRiskPrioritizer:
 
         # Prioritization
         if priority_score > 80:
-            recommendations.insert(0, "⚠️ HAUTE PRIORITÉ - Intervention urgente recommandée")
+            recommendations.insert(0, "HAUTE PRIORITE - Intervention urgente recommandee")
         elif priority_score > 60:
-            recommendations.insert(0, "⚡ PRIORITÉ MOYENNE-HAUTE")
+            recommendations.insert(0, "PRIORITE MOYENNE-HAUTE")
         elif priority_score > 40:
-            recommendations.insert(0, "📋 PRIORITÉ MOYENNE")
+            recommendations.insert(0, "PRIORITE MOYENNE")
 
         return " | ".join(recommendations) if recommendations else "Suivi régulier"
 
